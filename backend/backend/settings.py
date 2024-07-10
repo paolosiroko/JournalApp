@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-2bf+-dy^sgu6e7z5w9474)nh$wz#a4(otkxcmhc3&awnom-tkh
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.100.100']
 
 
 # Application definition
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework_simplejwt',
     'service',
     'corsheaders',
 ]
@@ -84,6 +85,16 @@ DATABASES = {
     }
 }
 
+# DATABASES = {
+#       'default': {
+#           'ENGINE': 'django.db.backends.sql',
+#           'NAME':  os.getenv('DB_NAME'),
+#           'USER': os.getenv('DB_USER'),
+#           'PASSWORD': os.getenv('DB_PASSWORD'),
+#           'HOST': os.getenv('DB_HOST'),
+#           'PORT': os.getenv('DB_PORT'),
+#       }
+#   }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -127,11 +138,11 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-    ]
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
 }
+
 
 CORS_ALLOWED_ORIGINS = [
     "https://example.com",
