@@ -9,6 +9,8 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 from .serializers import UserSerializer
+from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
 # Create your views here.
 
 
@@ -35,6 +37,21 @@ class LoginView(generics.GenericAPIView):
             })
 
         return Response({'error': 'Invalid Credentials'}, status=400)
+
+
+class UserUpdateAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get_object(self):
+        return self.request.user
+
+    def put(self, request, *args, **kwargs):
+        user = self.get_object()
+        serializer = UserSerializer(user, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class JournalEntryViewSet(viewsets.ModelViewSet):

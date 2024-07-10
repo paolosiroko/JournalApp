@@ -17,6 +17,18 @@ class UserSerializer(serializers.ModelSerializer):
         )
         return user
 
+    def update(self, instance, validated_data):
+        # Update user instance with validated data
+        instance.username = validated_data.get('username', instance.username)
+        instance.email = validated_data.get('email', instance.email)
+        password = validated_data.get('password')
+        if password:
+            instance.set_password(password)
+        instance.save()
+        return instance
+
+
+
 
 class JournalEntrySerializer(serializers.ModelSerializer):
     class Meta:

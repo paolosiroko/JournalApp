@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Button, StyleSheet, View } from 'react-native';
 import AuthContext from './AuthContext';
-import {FAB} from 'react-native-paper'
+
 
 const LogoutScreen = () => {
   const { logout } = useContext(AuthContext);
@@ -12,24 +12,28 @@ const LogoutScreen = () => {
 
   return (
     <View style={styles.container}>
-
-     <FAB
+     <Text>Are you sure you want to be logged out?</Text>
+     <Button
       style={styles.logoutButton}
-      small = {true}
-      icon="logout"
-      label="->"
+      title="Logout"
+      mode = "contained"
       onPress={handleLogout}
-    />
+    >Logout</Button>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   logoutButton: {
-    position:'absolute',
-    margin:16,
-    left:0,
-    bottom:0,
+    position: 'absolute',
+    margin: 16,
+    left: 0,
+    bottom: 0,
   },
 });
 

@@ -25,7 +25,7 @@ function JournalDetails(props) {
   return (
     <ScrollView>
     <View style = {styles.viewStyle}>
-          <Text style = {{fontSize:30,}}>
+          <Text style = {{fontSize:30,fontWeight: 'bold',}}>
               {data.title}
           </Text>
           <Text style = {{fontSize:20,margin:10,}}>

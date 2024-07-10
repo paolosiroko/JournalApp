@@ -2,7 +2,7 @@ import React, {useState,useEffect, Component } from 'react'
 import { Alert, FlatList, StyleSheet, Text, View } from 'react-native';
 import {Card, FAB} from 'react-native-paper'
 import {API_URL} from './Utils/utils'
-import LogoutScreen from './Auth/LogoutScreen';
+
 
 
 function Home(props) {
@@ -35,10 +35,19 @@ function Home(props) {
     props.navigation.navigate("JournalDetails", {data:data})
   }
 
+  const trimContent = (content) => {
+    const words = content.split(' ');
+    if (words.length > 50) {
+      return words.slice(0, 20).join(' ') + '...';
+    }
+    return content;
+  };
+
   const renderData = (item) => {
     return(
       <Card style = {styles.cardStyle} onPress = {() => clickedItem(item)}>
         <Text style = {styles.textStyle} >{item.title}</Text>
+        <Text style = {styles.descStyle} >{trimContent(item.content)}</Text>
       </Card>
     )
   }
@@ -64,7 +73,7 @@ function Home(props) {
 
           onPress = {() => props.navigation.navigate("Create")}
           />
-          <LogoutScreen/>
+         
         </View>        
     );
 }
@@ -78,12 +87,13 @@ const styles = StyleSheet.create({
 
   textStyle :{
     fontSize:25,
+    fontWeight: 'bold',
     color:'#000'
   },
 
   descStyle :{
-    fontSize:20,
-    color:'#000'
+    fontSize: 16,
+    lineHeight: 24,
   },
   fab:{
     position:'absolute',

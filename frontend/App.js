@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import LoginScreen from './Screens/Auth/LoginScreen';
 import RegisterScreen from './Screens/Auth/RegisterScreen';
+import LogoutScreen from './Screens/Auth/LogoutScreen';
 import Home from './Screens/Home'
 import Create from './Screens/Create'
 import JournalDetails from './Screens/JournalDetails'
@@ -10,10 +11,12 @@ import Constants from 'expo-constants';
 import AuthContext, { AuthProvider } from './Screens/Auth/AuthContext';
 
 
-import {NavigationContainer} from '@react-navigation/native'
-import {createStackNavigator} from '@react-navigation/stack'
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 
 const Stack = createStackNavigator()
+const Drawer = createDrawerNavigator();
 
 const AuthStack = () => (
   <Stack.Navigator>
@@ -39,6 +42,13 @@ const JournalApp = () => (
   </Stack.Navigator>
 );
 
+const DrawerNavigator = () => (
+  <Drawer.Navigator initialRouteName="Journal App">
+    <Drawer.Screen name="Journals" component={JournalApp} />
+    <Drawer.Screen name="Logout" component={LogoutScreen} />
+    {/* Add more screens here if needed */}
+  </Drawer.Navigator>
+);
 
 
 const App = () => {
@@ -48,7 +58,11 @@ const App = () => {
     <NavigationContainer>
       <Stack.Navigator>
         {isAuthenticated ? (
-          <Stack.Screen name="JournalApp" component={JournalApp} />
+          <Stack.Screen
+          name="Drawer"
+          component={DrawerNavigator}
+          options={{ headerShown: false }}
+        />
         ) : (
           <Stack.Screen name="Journal" component={AuthStack} />
         )}

@@ -11,7 +11,7 @@ const LoginScreen = ({ navigation }) => {
   const handleLogin = async () => {
     try {
       await AuthService.login(username, password);
-      navigation.navigate('Home');
+      navigation.navigate('Home',{ screen: 'Home' });
     } catch (error) {
       setError('Invalid credentials');
     }

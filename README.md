@@ -38,7 +38,7 @@ python manage.py createsuperuser
 
 ### React Native app installation
 
-go to utils/utils.js and update your base url with you system ip address
+go to **utils/utils.js** and update your **base url** with you system ip address
 
 Navigate to the **frontend** directory and install the required node pacakges:
 
